@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.db
+.DS_Store
+server.pid
+code_reviews.db
