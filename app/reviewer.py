@@ -16,7 +16,7 @@ Analyze the submitted code and return structured feedback.
 def review_code(code: str, language: str) -> CodeReview:
     response = client.messages.parse(
         model="claude-haiku-4-5",
-        max_tokens=4096,
+        max_tokens=4096,  # haiku caps at 4096 output tokens
         system=[
             {
                 "type": "text",
