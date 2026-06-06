@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: ai-code-reviewer
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false            # You'll enter this manually in Render dashboard
+      - key: DATABASE_URL
+        fromDatabase:
+          name: code-reviewer-db
+          property: connectionString
+
+databases:
+  - name: code-reviewer-db
+    databaseName: code_reviewer
+    user: code_reviewer_user
