@@ -1,4 +1,4 @@
-import anthropic as anthropic_sdk
+import groq as groq_sdk
 from fastapi import FastAPI, Depends, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -47,9 +47,9 @@ def submit_review(request: schemas.ReviewRequest, db: Session = Depends(get_db))
 
     try:
         review = review_code(request.code, language)
-    except anthropic_sdk.APIStatusError as e:
+    except groq_sdk.APIStatusError as e:
         raise HTTPException(status_code=502, detail=f"AI service error: {e.message}")
-    except anthropic_sdk.APIConnectionError:
+    except groq_sdk.APIConnectionError:
         raise HTTPException(status_code=503, detail="Could not reach AI service, try again.")
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
